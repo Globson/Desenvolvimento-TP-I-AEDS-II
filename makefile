@@ -1,0 +1,8 @@
+all: main.c INDICE_INVERTIDO.c LEITURA.c PATRICIA.c TST.c
+	gcc main.c -o EXEC INDICE_INVERTIDO.c LEITURA.c PATRICIA.c TST.c
+
+run: EXEC
+	./EXEC
+
+clear: EXEC
+	rm EXEC
