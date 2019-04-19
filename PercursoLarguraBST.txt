@@ -1,0 +1,16 @@
+void Largura(TipoApontador No, TipoFila *Fila){
+  TipoNo NoAux;
+  if(No != NULL){
+    Enfileira(*No, Fila);
+    while(Fila->Frente->Prox != NULL){
+      Desenfileira(Fila, &NoAux);
+      printf("%d ", NoAux.chave);
+      if(NoAux.esq != NULL){
+        Enfileira(*NoAux.esq, Fila);
+      }
+      if(NoAux.dir != NULL){
+        Enfileira(*NoAux.dir, Fila);
+      }
+    }
+  }
+}
