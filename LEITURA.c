@@ -76,7 +76,7 @@ TipoQtdeTermos* Leitura(TipoArvore *t, int *N){
   		}
   		if(!Vazia(Fila)){
   			TAMFila = ContaCelula(Fila);
-        if(TAMFila > 3){
+        if(TAMFila > 2){ //sameul testou no linux com 2
           string = (TipoChave)malloc((TAMFila+1)*sizeof(char));
     			for(i=0; i<TAMFila; i++){
     				Desenfileira(&Fila,&caracter2);
