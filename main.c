@@ -12,6 +12,7 @@ int main(){
   //char quem[5], casa[5], tbm[7], apto[12], tds[6], ngm[8], em[3];
   Ni = Leitura(&P, &N);
   Busca(P, N, Ni);
+  ImprimePat(P);
   /*strcpy(quem,"quem");
   strcpy(casa,"casa");
   strcpy(tbm,"tambem");

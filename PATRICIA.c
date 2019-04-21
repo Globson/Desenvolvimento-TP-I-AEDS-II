@@ -15,7 +15,6 @@ int CalculaIndice(TipoChave k, TipoChave Palavra, int N){
 }
 
 int ComparaChaves(TipoChave k, TipoChave Palavra, int TAM1, int TAM2){
-  int i;
   if(TAM2 < TAM1){
     return CalculaIndice(k, Palavra, TAM2);
   }
@@ -156,6 +155,20 @@ TipoArvore Insere(TipoChave Palavra, TipoArvore *t, int idDoc, TipoQtdeTermos *N
     }
     else{
       return (InsereEntre(Palavra, t, i, idDoc));
+    }
+  }
+}
+void ImprimePat(TipoArvore t){
+  if(EExterno(t)){
+    printf("\nPalavra -> %s ", t->NO.Conteudo.Chave);
+    Imprime(t->NO.Conteudo.Lista);
+  }
+  else{
+    if(t->NO.NInterno.Esq != NULL){
+      ImprimePat(t->NO.NInterno.Esq);
+    }
+    if(t->NO.NInterno.Dir != NULL){
+      ImprimePat(t->NO.NInterno.Dir);
     }
   }
 }

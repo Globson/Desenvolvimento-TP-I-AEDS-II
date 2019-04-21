@@ -37,4 +37,5 @@ void PesquisaPat(TipoChave Palavra, TipoArvore t);
 TipoArvore PesquisaNO(TipoChave Palavra,TipoArvore t);
 TipoArvore InsereEntre(TipoChave Palavra, TipoArvore *t, int i, int idDoc);
 TipoArvore Insere(TipoChave Palavra, TipoArvore *t, int idDoc, TipoQtdeTermos *Ni);
+void ImprimePat(TipoArvore t);
 #endif
