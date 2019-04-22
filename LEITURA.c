@@ -62,8 +62,8 @@ TipoQtdeTermos* Leitura(TipoArvore *t, TipoApontador *RaizTST, int *N){//Realiza
     Verificador = 2;//Variável de controle usada para indicar o fim da leitura
     Verificador2 = 0;//Variável de controle usada para indicar se o nome do arquivo está escrito da forma correta
     while(Verificador2 == 0){//Condição de parada: Nome do arquivo escrito da forma correta
-    	printf("\nDigite o nome do arquivo da seguinte forma -> 'arquivo(N).txt': ");
-      printf("Em que (N > 0)!\n");
+    	printf("\n\tEntre com o nome do arquivo da seguinte forma -> 'arquivo(N).txt': Em que (N > 0)!\n\n");
+      printf("Entrada: ");
     	scanf("%s",NomeArq);//Recebe o nome do arquivo
       Arquivo = fopen(NomeArq, "r");//Realiza a abertura do arquivo em modo de leitura
       if(Arquivo == NULL){//Se a abertura do arquivo teve algum problema:
