@@ -138,7 +138,7 @@ void Busca(TipoArvore t, int N, TipoQtdeTermos *Ni, TipoApontador RaizTST){//Rea
       free(str);//Apaga o conteúdo desse vetor, deixando-o disponível para a próxima palavra
     }
     else{//Caso o valor retornado pela função seja diferente de NULL, significa que há essa palavra na árvore
-      printf("Palavra encontrada!\n");//Mensagem indicando ao usuário que a palavra foi encontrada
+      printf("\t-->Palavra computada!<--\n");//Mensagem indicando ao usuário que a palavra foi encontrada
       free(str);//Apaga o conteúdo desse vetor, deixando-o disponível para a próxima palavra
       d = ContaCelulaLista(Aux->NO.Conteudo.Lista);//Recebe a quantidade de arquivos que essa palavra aparece
       f = (int *)malloc(d*sizeof(int));//Criando o vetor que guardará em cada posição a quantidade de vezes que a palavra repete em um documento
