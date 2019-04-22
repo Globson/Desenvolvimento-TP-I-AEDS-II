@@ -18,5 +18,6 @@ int main(){
   InicializaPat(&P);//Inicializando o ponteiro da árvore PATRICIA
   Inicializa(&Pt);//Inicializando o ponteiro da árvore TST
   menu(&P, &Pt, &N, Ni);//Chamando o menu de escolhas
+  printf("\n\t\t   Desenvolvedores:\n\t\t    Josue Campos - 34xx\n\t\t    Mateus Coelho - 34xx\n\t\t    Samuel Sena - 3494\n\n\t       OBRIGADO POR UTILIZAR O PROGRAMA!\n"); //Agradecimentos
   return 0;
 }//Fim do programa principal

@@ -183,8 +183,12 @@ TipoArvore Insere(TipoChave Palavra, TipoArvore *t, int idDoc, TipoQtdeTermos *N
 }
 
 void ImprimePat(TipoArvore t){//Imprime a árvore PATRICIA
+  if(t == NULL){
+    printf("\n\t-->Arvore Vazia!<--\n\n");
+    return;
+  }
   if(EExterno(t)){//Verifica se o nó é externo, significando que uma chave deve ser mostrada
-    printf("\nPalavra -> %s ", t->NO.Conteudo.Chave);//Imprime a palavra
+    printf("\nPalavra -> %s :", t->NO.Conteudo.Chave);//Imprime a palavra
     Imprime(t->NO.Conteudo.Lista);//Imprime a lista de índice invertido referente à essa palavra
   }
   else{//Se o nó for interno, significa que a árvore ainda deve ser percorrida

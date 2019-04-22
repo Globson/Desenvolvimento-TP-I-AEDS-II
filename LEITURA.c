@@ -123,7 +123,7 @@ void Busca(TipoArvore t, int N, TipoQtdeTermos *Ni, TipoApontador RaizTST){//Rea
   TipoArvore Aux;//Apontador auxiliar para receber um nó folha da árvore
   TipoList listaPeso;//Lista que conterá todos os pesos da(s) palavra(s) referentes à todo(s) arquivo(s) com a(s) palavra(s)
   TipoRelevancia *VetorRlva;//Vetor que conterá as relevâncias de cada documento que contém a(s) palavra(s) buscada(s)
-  int d, i, j, nI, Verificador, TAM;//Variáveis para o funcionamento do procedimento
+  int d, i, j, nI, Verificador;//Variáveis para o funcionamento do procedimento
   int *f, *id;//Vetor para guardar o número de ocorrência de uma palavra em um documento e um vetor com seu ID, respectivamente
   char *str;//Vetor de caracteres que receberá a(s) palavra(s) digitada(s)
   double peso, PesoTotal;//Variáveis para guardar o peso de uma palavra e o peso total em um documento, respectivamente
@@ -151,8 +151,14 @@ void Busca(TipoArvore t, int N, TipoQtdeTermos *Ni, TipoApontador RaizTST){//Rea
       free(f);//Apaga o conteúdo desse vetor, deixando-o disponível para as quantidades da próxima palavra
       free(id);//Apaga o conteúdo desse vetor, deixando-o disponível para os IDs de documento da próxima palavra
     }
+    Verificador = 3; //Garantindo a entrada no while abaixo.
+    while(Verificador != 1 && Verificador != 0){//Condição de parada: A opção digitada for alguma das disponíveis
     printf("\nDeseja buscar mais palavras?\n\tSim - 1\n\tNao - 0\nEntre com a opcao desejada: ");
     scanf("%d", &Verificador);//Recebe a opção que o usuário deseja, 1 para buscar mais palavras ou 0 caso não queira
+    if(Verificador != 1 && Verificador != 0){//Se a opção digitada não satisfaz as disponíveis:
+      printf("\nErro! Opcao invalida!\n");//Mensagem de erro
+     }
+    }//Fim do while
   }while(Verificador != 0);//Condição de parada: Variável de controle ser igual a 0, ou seja, usuário não quer digitar mais palavras
   for(i=1; i<=N; i++){//Já que não há mais palavras para serem buscadas, as funções referentes ao cálculo da relevância são chamadas
     PesoTotal = SomaPesos(listaPeso, i);//Recebe a soma de todos os pesos do documento i
@@ -168,14 +174,14 @@ void Busca(TipoArvore t, int N, TipoQtdeTermos *Ni, TipoApontador RaizTST){//Rea
   quick_sort(VetorRlva, N);//Ordena o vetor de relevâncias para exibir os documentos na ordem correta
   printf("A partir do TF-IDF, os documentos mais relevantes sao:\n");
   if(N == 1){
-    printf("Apenas 1 documento inserido, logo e o unico relevante!\n");
+    printf("\t-->Apenas 1 documento inserido, logo e o unico relevante!<--\n");
   }
   else{
     for(i=0; i<N; i++){//Repetição para exibir os documentos mais relevantes a partir do cálculo do TF-IDF
       if(VetorRlva[i].Relevancia == 0.0){//Se a relevância de um documento é 0:
         break;//Significa que não há mais documentos a serem exibidos, já que o vetor está ordenado decrescentemente
       }//Se não, exibe os textos relevantes para essa busca
-      printf("Texto %d: (arquivo%d.txt)\n", VetorRlva[i].IDdoc, VetorRlva[i].IDdoc);
+      printf("\t-->Texto %d: (arquivo%d.txt)<--\n", VetorRlva[i].IDdoc, VetorRlva[i].IDdoc);
     }
   }
   free(VetorRlva);//Apaga o conteúdo desse vetor, liberando espaço para outras execuções

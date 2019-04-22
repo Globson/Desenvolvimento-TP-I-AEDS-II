@@ -141,6 +141,7 @@ char *AutoCompletar(TipoApontador Raiz){  //Função criada para encapsular scan
       while(Verifica == 1){//Condição de parada: Escolher uma palavra que esteja disponível
         printf("Qual palavra deseja escolher?\n");
         ImprimeLTST(lista);//Imprime as opções disponíveis
+        printf("Entre com o numero correspondente a palavra:");
         scanf("%d", &idPalavra);//Recebendo o ID de escolha
         strcpy(Prefixo_APesquisar,PesquisaLTST(lista, idPalavra));//Pesquisando o ID e retornando o resultado da pesquisa para a variável
         if(strcmp(Prefixo_APesquisar,"00")==0){//Caso o ID digitado não esteja dentre as opções:

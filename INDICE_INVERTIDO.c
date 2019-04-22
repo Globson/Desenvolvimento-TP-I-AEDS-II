@@ -39,10 +39,10 @@ void Imprime(TipoLista Lista){//Imprime a lista
   TipoCelPoint Aux;//Ponteiro auxiliar para percorrer a lista
   Aux = Lista.Primeiro -> Prox;//Recebendo a primeira célula após a célula cabeça
   while (Aux != NULL){//Condição de parada: Chegar ao final da lista
-    printf("\n\t\t-------Inicio da Celula-------\n");
+    printf("\n\t\t-------Inicio do indice-------\n");
     printf("\t\t->idDoc: %d\n", Aux->IdDoc);//Exibindo o ID do documento
     printf("\t\t->Qtde: %d\n", Aux->qtde);//Exibindo a quantidade de vezes que a palavra repete nesse documento
-    printf("\t\t---------Fim da Celula--------\n\n");
+    printf("\t\t---------Fim do indice--------\n\n");
     Aux = Aux -> Prox;//Avançando o ponteiro auxiliar
   }
 }
