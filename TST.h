@@ -38,8 +38,8 @@ int VaziaLTST(TipoListaTST lista);//Verifica se a lista é vazia
 void InserePalavra(char *x, TipoListaTST *lista, int *Contador);//Insere uma palavra com o prefixo buscado
 void ImprimeLTST(TipoListaTST lista);//Imprime as palavras com o prefixo buscado
 char *PesquisaLTST(TipoListaTST lista, int id);//Retorna a palavra que fora escolhida para a pesquisa
-void Imprime_Filhos(TipoApontador Raiz, char *Cache, char *Prefixo_salvo, int Nivel,int *Verificador, TipoListaTST *lista, int *idPalavra);
-void Busca_Filhos(TipoApontador Raiz, char *Prefixo_salvo, int *Verificador, TipoListaTST *lista, int *idPalavra);
-int Pesquisa_Prefixo(TipoApontador Raiz, char *Prefixo_Atual, char *Prefixo_salvo , int *Verificador, TipoListaTST *lista, int *idPalavra);
-char *AutoCompletar(TipoApontador Raiz);
+void Sufixo_Filhos(TipoApontador Raiz, char *Cache, char *Prefixo_salvo, int Nivel,int *Verificador, TipoListaTST *lista, int *idPalavra);//Funcao forma os sufixos dos filhos daquele prefixo e concatena com prefixo constante.//
+void Busca_Filhos(TipoApontador Raiz, char *Prefixo_salvo, int *Verificador, TipoListaTST *lista, int *idPalavra); //Funcao para encontrar filhos de no de chave igual ao ultimo caractere do prefixo entrado pelo usuario.//
+int Pesquisa_Prefixo(TipoApontador Raiz, char *Prefixo_Atual, char *Prefixo_salvo , int *Verificador, TipoListaTST *lista, int *idPalavra);//Navega pela TST ate encontrar no de chave igual ao ultimo caractere do prefixo entrado pelo usuario.//
+char *AutoCompletar(TipoApontador Raiz);//Função criada para encapsular scanf() e passar parametro correto para função pesquisa prefixo, alem de gerenciar pesquisa de palavras em relevancia.//
 #endif

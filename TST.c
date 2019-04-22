@@ -81,49 +81,49 @@ char *PesquisaLTST(TipoListaTST lista, int id){//Retorna a palavra que fora esco
   return "00";//Retorna "00" se o ID buscado não for achado
 }
 
-void Imprime_Filhos(TipoApontador Raiz, char *Cache, char *Prefixo_salvo, int Nivel,int *Verificador, TipoListaTST *lista, int *idPalavra){
-    if(Raiz != NULL){
-        Imprime_Filhos(Raiz->Esq, Cache, Prefixo_salvo, Nivel, Verificador, lista, idPalavra);
-        Cache[Nivel] = Raiz->Chave;
-        if(Raiz->FimDeString == 1){
+void Sufixo_Filhos(TipoApontador Raiz, char *Cache, char *Prefixo_salvo, int Nivel,int *Verificador, TipoListaTST *lista, int *idPalavra){ //Funcao forma os sufixos dos filhos daquele prefixo e concatena com prefixo constante.//
+    if(Raiz != NULL){ //Verifica se a arvore existe
+        Sufixo_Filhos(Raiz->Esq, Cache, Prefixo_salvo, Nivel, Verificador, lista, idPalavra); //Chama recursivamente primeiro o nó a esquerda para manter ordem.//
+        Cache[Nivel] = Raiz->Chave; //Formacao de sufixo, caractere a caractere.//
+        if(Raiz->FimDeString == 1){//Caso chegue no fim de uma string.
             char *PalavraTemp;//Criação de um vetor de caracteres temporário apenas para a palavra ser guardada na lista
             PalavraTemp = (char *)malloc(47*sizeof(char));//Alocando um espaço na memória para esse vetor
-            Cache[Nivel+1] = '\0';
+            Cache[Nivel+1] = '\0'; // Atribui "\0" para indicar fim de string em variavel char*.//
             strcpy(PalavraTemp,Prefixo_salvo);//Copiando o prefixo digitado para o vetor temporário
             strcat(PalavraTemp,Cache);//Concatenando o prefixo e o resto da palavra achada
             InserePalavra(PalavraTemp,lista,idPalavra);//Insere essa nova palavra com o prefixo buscado
             *Verificador = 1;//Indicador que há uma palavra com esse prefixo
             free(PalavraTemp);//Apagando o conteúdo do vetor de caracteres temporário
         }
-        Imprime_Filhos(Raiz->Meio, Cache, Prefixo_salvo, Nivel+1, Verificador, lista, idPalavra);
-        Imprime_Filhos(Raiz->Dir, Cache, Prefixo_salvo, Nivel, Verificador, lista, idPalavra);
+        Sufixo_Filhos(Raiz->Meio, Cache, Prefixo_salvo, Nivel+1, Verificador, lista, idPalavra);//Chama recursivamente em seguida o nó no meio para manter ordem.//
+        Sufixo_Filhos(Raiz->Dir, Cache, Prefixo_salvo, Nivel, Verificador, lista, idPalavra); //Chama recursivamente em seguida nó a direita para manter ordem.//
       }
 }
 
-void Busca_Filhos(TipoApontador Raiz, char *Prefixo_salvo, int *Verificador, TipoListaTST *lista, int *idPalavra){
-    char Cache[47];
-    Imprime_Filhos(Raiz, Cache, Prefixo_salvo, 0, Verificador, lista, idPalavra); //Chama função para imprimir filhos daquele prefixo.//
+void Busca_Filhos(TipoApontador Raiz, char *Prefixo_salvo, int *Verificador, TipoListaTST *lista, int *idPalavra){ //Funcao para encontrar filhos de no de chave igual ao ultimo caractere do prefixo entrado pelo usuario.//
+    char Cache[47]; //Variavel criada para auxiliar formacao de sufixos.//
+    Sufixo_Filhos(Raiz, Cache, Prefixo_salvo, 0, Verificador, lista, idPalavra); //Chama funcao para formar os sufixos dos filhos daquele prefixo.//
 }
 
-int Pesquisa_Prefixo(TipoApontador Raiz, char *Prefixo_Atual, char *Prefixo_salvo , int *Verificador, TipoListaTST *lista, int *idPalavra){ //Busca por palavras com o prefixo igual ao passado por parametro.//
-    if (Raiz == NULL){
+int Pesquisa_Prefixo(TipoApontador Raiz, char *Prefixo_Atual, char *Prefixo_salvo , int *Verificador, TipoListaTST *lista, int *idPalavra){ //Navega pela TST ate encontrar no de chave igual ao ultimo caractere do prefixo entrado pelo usuario.//
+    if (Raiz == NULL){ //Verifica se a arvore existe
         return 0;
     }
-    if (*Prefixo_Atual < Raiz->Chave){
+    if (*Prefixo_Atual < Raiz->Chave){ //Algoritmo realiza uma busca parcial entre os nos da arvore TST ate chegar no fim do prefixo entrado.
         return Pesquisa_Prefixo(Raiz->Esq, Prefixo_Atual, Prefixo_salvo, Verificador, lista, idPalavra);
       }
     else if (*Prefixo_Atual > (Raiz)->Chave){
         return Pesquisa_Prefixo(Raiz->Dir, Prefixo_Atual, Prefixo_salvo , Verificador, lista, idPalavra);
       }
     else{
-        if (*(Prefixo_Atual+1) == '\0'){
+        if (*(Prefixo_Atual+1) == '\0'){  //Ao encontrar ultimo digito do prefixo, chama a função Busca_Filhos para encontrar todos os filhos do prefixo entrado.
             Busca_Filhos(Raiz->Meio, Prefixo_salvo, Verificador, lista, idPalavra);
         }
-        return Pesquisa_Prefixo(Raiz->Meio, (Prefixo_Atual+1), Prefixo_salvo, Verificador, lista, idPalavra);
+        return Pesquisa_Prefixo(Raiz->Meio, (Prefixo_Atual+1), Prefixo_salvo, Verificador, lista, idPalavra); //Causo o proximo caractere do prefixo nao seja "\0" e o caractere seja igual ao do no atual, devemos avançar ao proximo no situado no meio.
     }
 }
 
-char *AutoCompletar(TipoApontador Raiz){  //Função criada para encapsular scanf() e passar parametro correto para função pesquisa prefixo.//
+char *AutoCompletar(TipoApontador Raiz){  //Função criada para encapsular scanf() e passar parametro correto para função pesquisa prefixo, alem de gerenciar pesquisa de palavras em relevancia.//
   //Funções criadas a partir da Função TransverseTST hospedada em : ( https://www.geeksforgeeks.org/ternary-search-tree/ ) .//
   char *Prefixo_APesquisar;//Vetor de caracteres que receberá o prefixo digitado
   int Verifica = 0, idPalavra = 0;//Variáveis para funcionamento do procedimento
