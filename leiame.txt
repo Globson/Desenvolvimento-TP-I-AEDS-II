@@ -1,0 +1,115 @@
+*******************************************************************Aplicação com Árvores Digitais**********************************************************************
+																				      
+Objetivo: Indexação de várias palavras dada uma coleção de documentos.                                                                                              
+      																				      
+Compilador utilizado: GCC GNU Compiler.															      
+Editor de texto utilizado no desenvolvimento: Atom.														      
+				      
+Computador 1: Windows 10 Home Single Language;
+	      4GB de memória RAM;																      
+	      500GB de HD;																	      
+	      Intel(R) Core(TM) i3-4005U CPU @ 1.70GHz
+													      
+Computador 2: Ubuntu 18 KDE;
+	      8GB de memória RAM;																      
+	      1TB de HD;																      
+	      Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz													      																	      
+Instalação do GCC para compilar arquivos pelo CMD do Windows:													      
+   # Com o GCC já baixado:																	      
+       1) Acessar "Sistema" em Painel de Controle;														      
+       2) Clicar na opção à esquerda: "Configurações avançadas do sistema";											     
+       3) Clicar na opção no canto inferior direito: "Variáveis de Ambiente";											      
+       4) Caso a variável de ambiente "PATH" não esteja criada, criar essa nova variável;									      
+       5) Adicionar à essa variável o caminho do executável do compilador GCC (normalmente encontra-se na pasta "bin"). Exemplo: C:\Program Files (x86)\GCC\bin;    
+       6) Salvar as modificações e abrir o terminal no diretório que consta o(s) arquivo(s) a ser(em) compilado(s).						      
+																				      No Linux o GCC já vem pré instalado.																      
+																				      
+Comando do GCC para compilar os arquivos do programa:														      
+   # No Windows:																		      
+       gcc INDICE_INVERTIDO.h INDICE_INVERTIDO.c TF_IDF.h TF_IDF.c PATRICIA.h PATRICIA.c LEITURA.h LEITURA.c TST.h TST.c main.c -o main			      
+       main																			      
+   # No Linux:																		      
+	-> Sem makefile:																	      
+	    gcc main.c -o main INDICE_INVERTIDO.c TF_IDF.c PATRICIA.c LEITURA.c TST.c -lm
+	    ./main																		      
+	-> Com makefile:																	      
+	    make																		     
+	    make run
+
+Descrição do Programa:
+	O sistema implementado tem como características os seguintes procedimentos: Inserção de palavras dado um documento, impressão dessas palavras e busca por palavras inseridas a partir de prefixos	desejados.
+	Para fazer a seleção de qual instrução deverá ser executada, há um menu com 4 opções, que são: (1) Inserir arquivos para leitura, (2) imprimir a PATRICIA com 	o índice e ocorrência de cada palavra, (3) buscar palavra(s) no(s) texto(s), e (4) sair do programa. Se o usuário digitar um valor diferente dos 4 previstos, ele deverá digitar outro valor, até ser um válido.
+	A leitura para a Inserção é feita através de um documento com formato ".txt", e o nome dele deve ser: "arquivo<N>", sendo N um valor para identificar o arquivo, e se o documento que será lido e inserido já foi inserido, para que não ocorra repetições desnecessárias. Esse N também é importante para identificar a relevância do texto ao pesquisar termos nas árvores.  
+	A Inserção das palavras é feita em duas árvores, uma TST, que tem como objetivo fazer a busca pelo prefixo, e uma PATRICIA, que tem como objetivo armazenar
+as palavras de maneira ordenada, para facilitar a busca e impressão, além de conter a informação correspondente a qual documento contém certa palavra, e quantas 
+vezes ela se repete em um arquivo.
+	Na PATRICIA, temos o nó interno contendo um apontador para a esquerda e outro para direita, que são para outros nós, além de qual a posição na palavra que difere entre os dois caminhos, e também a letra que representa a menor entre as duas nessa posição; 
+	A impressão das palavras é feita percorrendo a PATRICIA, e como ela já insere de forma ordenada, seguimos o conceito de ordem, sendo os caracteres menores
+ou iguais a letra no nó interno estarão à esquerda, e os maiores à direita, garantindo que esteja tudo em ordem alfabética.
+
+Comandos para funcionamento do programa:
+1) Diante do menu apresentado com as opções, escolha uma delas de acordo com a função que deseja executar;
+2) Se a opção escolhida for a (1), o nome do arquivo deverá ser digitado exatamente da forma apresentada acima. Após isso, escolha se deseja inserir mais um arquivo ou voltar para o menu de opções;
+3) Se a opção escolhida no menu for a (2), toda a árvore PATRICIA será impressa, com as palavras em ordem alfabética e com suas respectivas listas de índices invertidos;
+4) Se a opção escolhida no menu for a (3), um prefixo será pedido para ser digitado, com isso, todas as palavras com esse prefixo serão disponibilizadas para escolha. Caso desejar buscar mais palavras, basta digitar um. Por fim, o resultado do cálculo do documento mais relevante para essa busca será exibido;
+5) Se a opção escolhida for a (0), o programa será terminado.
+
+Casos de teste:
+1) Caso base: Os dois arquivos passados juntamente com a especificação do trabalho.
+	1
+	arquivo1.txt ---> Exibe os avisos das palavras repetidas;
+	1
+	arquivo2.txt ---> Exibe os avisos das palavras repetidas;
+	0
+	2 ---> Exibe a árvore;
+	3
+	qu
+	2
+	1
+	t
+	2
+	0 ---> Exibe o cálculo do TF-IDF (arquivo2.txt e arquivo1.txt);
+	0
+
+2) Caso 1: Um arquivo com 500 palavras.
+	1
+	arquivo6.txt ---> Exibe os avisos das palavras repetidas;
+	0
+	2 ---> Exibe a árvore;
+	3
+	art
+	1
+	0 ---> Exibe o cálculo do TF-IDF (1 arquivo inserido apenas, logo é o único relevante);
+	0
+
+3) Caso 2: Três arquivos com 500 palavras.
+	1
+	arquivo4.txt ---> Exibe os avisos das palavras repetidas;
+	1
+	arquivo5.txt ---> Exibe os avisos das palavras repetidas;
+	1
+	arquivo6.txt ---> Exibe os avisos das palavras repetidas;
+	0
+	2 ---> Exibe a árvore;
+	3
+	bin
+	1
+	1
+	lin
+	5
+	1
+	dart
+	1
+	0 ---> Exibe o cálculo do TF-IDF (arquivo5.txt, arquivo6.txt e arquivo4.txt);
+	0
+																      
+Desenvolvedores do programa:																	      
+   # Josué Nunes Campos.																	      
+   # Mateus Coelho Santos.																	      
+   # Samuel Pedro Campos Sena.
+															      
+# Fontes da árvore TST: https://ucoder.com.br/tutorials/arvore-busca-ternaria                                                                                    
+			https://www.geeksforgeeks.org/ternary-search-tree/                                                                                       
+# Fonte das estruturas de dados básicas usadas no programa: http://www2.dcc.ufmg.br/livros/algoritmos/implementacoes-03.php
+# Repositório do github com todos os arquivos: https://github.com/Globson/TP-AEDS-II-ARVORE-DIGITAIS								   
+***********************************************************************************************************************************************************************
