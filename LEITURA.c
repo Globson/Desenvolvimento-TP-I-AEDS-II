@@ -75,7 +75,7 @@ TipoQtdeTermos* Leitura(TipoArvore *t, TipoApontador *RaizTST, int *N){//Realiza
     }//Fim do while
     (*N)++;//Incrementa 1 indicando que há um arquivo lido
     NiAux = (TipoQtdeTermos *)realloc(NiAux, (*N)*sizeof(TipoQtdeTermos));//Cria uma nova posição no vetor de elementos distintos
-  	idDoc = ((int)NomeArq[7]) - 48;//Recebe o ID do documento que será lido
+  	idDoc = ((int)NomeArq[7]) - 48;//Recebe o ID do documento que será lido    ------------------------------------******
     NiAux[j].iDdOc = idDoc;//Guarda no vetor de elementos distintos o ID desse documento
     NiAux[j].nTermsDist = 0;//Inicializa o número de termos distintos como 0 já que não há nenhuma palavra lida ainda
   	while(!feof(Arquivo)){//Condição de parada: Chegar ao fim do arquivo
@@ -123,7 +123,7 @@ void Busca(TipoArvore t, int N, TipoQtdeTermos *Ni, TipoApontador RaizTST){//Rea
   TipoArvore Aux;//Apontador auxiliar para receber um nó folha da árvore
   TipoList listaPeso;//Lista que conterá todos os pesos da(s) palavra(s) referentes à todo(s) arquivo(s) com a(s) palavra(s)
   TipoRelevancia *VetorRlva;//Vetor que conterá as relevâncias de cada documento que contém a(s) palavra(s) buscada(s)
-  int d, i, j, nI, Verificador;//Variáveis para o funcionamento do procedimento
+  int d, i, nI, Verificador;//Variáveis para o funcionamento do procedimento
   int *f, *id;//Vetor para guardar o número de ocorrência de uma palavra em um documento e um vetor com seu ID, respectivamente
   char *str;//Vetor de caracteres que receberá a(s) palavra(s) digitada(s)
   double peso, PesoTotal;//Variáveis para guardar o peso de uma palavra e o peso total em um documento, respectivamente
@@ -160,16 +160,11 @@ void Busca(TipoArvore t, int N, TipoQtdeTermos *Ni, TipoApontador RaizTST){//Rea
      }
     }//Fim do while
   }while(Verificador != 0);//Condição de parada: Variável de controle ser igual a 0, ou seja, usuário não quer digitar mais palavras
-  for(i=1; i<=N; i++){//Já que não há mais palavras para serem buscadas, as funções referentes ao cálculo da relevância são chamadas
-    PesoTotal = SomaPesos(listaPeso, i);//Recebe a soma de todos os pesos do documento i
-    VetorRlva[i-1].IDdoc = i;//Guarda no vetor de relevâncias o ID de cada documento já ordenado
-    for(j=0; j<N; j++){//Repetição até achar o número de termos distintos do documento i
-      if(Ni[j].iDdOc == i){//Se o ID procurado é igual ao do vetor de número elementos distintos:
-        nI = Ni[j].nTermsDist;//Recebe o número de termos distintos nesse documento
-        break;//Para a execução desse for já que o valor procurado foi encontrado
-      }
-    }//Fim do for mais interno
-    VetorRlva[i-1].Relevancia = CalculaRelevancia(PesoTotal, nI);//Recebe a relevância calculada do documento i
+  for(i=0; i<N; i++){//Já que não há mais palavras para serem buscadas, as funções referentes ao cálculo da relevância são chamadas
+    PesoTotal = SomaPesos(listaPeso,  Ni[i].iDdOc);//Recebe a soma de todos os pesos do documento i
+    VetorRlva[i].IDdoc = Ni[i].iDdOc;//Guarda no vetor de relevâncias o ID de cada documento já ordenado
+        nI = Ni[i].nTermsDist;//Recebe o número de termos distintos nesse documento
+    VetorRlva[i].Relevancia = CalculaRelevancia(PesoTotal, nI);//Recebe a relevância calculada do documento i
   }//Fim do for mais externo
   quick_sort(VetorRlva, N);//Ordena o vetor de relevâncias para exibir os documentos na ordem correta
   printf("A partir do TF-IDF, os documentos mais relevantes sao:\n");

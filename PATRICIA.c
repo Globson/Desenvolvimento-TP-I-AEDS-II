@@ -183,7 +183,7 @@ TipoArvore Insere(TipoChave Palavra, TipoArvore *t, int idDoc, TipoQtdeTermos *N
 }
 
 void ImprimePat(TipoArvore t){//Imprime a árvore PATRICIA
-  if(t == NULL){
+  if(t == NULL){ //Verificacao se arvore esta criada.//
     printf("\n\t-->Arvore Vazia!<--\n\n");
     return;
   }
